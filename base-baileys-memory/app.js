@@ -455,7 +455,7 @@ const flowPrincipal = addKeyword(['chatbot','Chatbot','chatbot ','Chatbot '])
 const main = async () => {
   const adapterDB = new MockAdapter()
   const adapterFlow = createFlow([flowPrincipal])
-  const adaptgiterProvider = createProvider(BaileysProvider)
+  const adapterProvider = createProvider(BaileysProvider)
   createBot({
     flow: adapterFlow,
     provider: adapterProvider,
