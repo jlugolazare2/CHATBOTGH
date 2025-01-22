@@ -18,7 +18,7 @@ const flowWeb = addKeyword(['web'])
 
 const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','Registrar'])
   .addAnswer('¡Hola! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
-  .addAnswer('¿Te parece si empezamos, cual el nombre completo? ✍️ ', { capture: true }, async (ctx, { flowDynamic, state }) => {
+  .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, { flowDynamic, state }) => {
     const nombreUsuario = ctx.body
     await state.update({ nombreUsuario: nombreUsuario })
     //await flowDynamic(`*Usuario*: ${nombreUsuario}. Ahora, `)
@@ -122,7 +122,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                               })
                               console.log('Respuesta completa de AppSheet:', JSON.stringify(response.data, null, 2))
                               if (response.status === 200) {
-                                await flowDynamic(` ¡Listo,! 🙌 Usuario registrado con exito en app de Citas\n Nombre: ${nombreUsuario}\n Email: ${emailUsuario}\n Celular: ${celUsuario}\n Distribuidor: ${distribucionNombre}\n` )
+                                await flowDynamic(` ✅ ¡Registro exitoso!\nBienvenido/a, ${nombreUsuario}\nTu correo electrónico registrado es: ${emailUsuario}\nCelular: ${celUsuario}\nDistribuidor: ${distribucionNombre}\n\n¿Deseas realizar algo más?🤔\n✅Escribe *MENÚ* para regresar al inicio.` )
                               } else {
                                 console.error('Respuesta inesperada de AppCitas:', response.status, response.statusText)
                                 await flowDynamic('Hubo un problema al registrar el usuario. Por favor, intenta nuevamente.')
@@ -134,7 +134,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                             }
                           
                       } else {
-                          await flowDynamic('Pero, solo personal autorizado puede registrar usuarios en AppCitas. Por favor, contacta al gerente correspondiente.');
+                          await flowDynamic('🔒 Solo personal autorizado puede registrar usuarios en AppCitas. \n¿Deseas realizar algo más? 🤔\n ✅ Escribe *MENÚ* para regresar al inicio.');
                       }
                   } else {
                       await flowDynamic('error a obtener datos.');
@@ -151,7 +151,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
   
                 
               } else {
-                  await flowDynamic('No se encontro distribucion con el numero especificado.');
+                  await flowDynamic('🔴 Número de Distribuidor no Existe.\n¿Deseas realizar algo más? 🤔\n ✅ Escribe *MENÚ* para regresar al inicio.');
               }
         } else {
             await flowDynamic('No se encontro distribucion con el numero especificado.');
@@ -200,9 +200,9 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                 const personal = response.data.filter(persona => persona.Email === emailConsulta);
                 console.log('Respuesta completa 2 de AppSheet:', JSON.stringify(personal.data, null, 2));
                 if (personal.length > 0) {
-                    let personalMsg = 'Personal encontrado:\n';
+                    let personalMsg = '📋 Aquí tienes tu información: \n';
                     personal.forEach((persona, index) => {
-                        personalMsg += ` Status: ${persona['Estado del Registro']},\n Distribución: ${persona.Gerente},\n Puesto: ${persona['Puesto']},\n Nombre: ${persona['Nombre']},\n Email: ${persona.Email}`;
+                        personalMsg += `Status: ${persona['Estado del Registro']},\nNombre: ${persona['Nombre']},\nPuesto: ${persona['Puesto']},\nDistribución: ${persona.Gerente},\nEmail: ${persona.Email},\n`;
                         if (numeroCelular===(`521`+persona.Telefono.toString())) {
                           
                           const fechaInicio = new Date(persona['Fecha de Alta']); 
@@ -218,8 +218,9 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                           console.log('Fecha Inicio:', fechaInicio,'Fecha Fin:', fechaFin,'Diferencia:', diferenciaDias);
 
                           if (diferenciaDias>10) {
-                            personalMsg +=` Password: ${persona['Password']}\n`;
+                            personalMsg +=`Password: ${persona['Password']}\n`;
                           }
+                          personalMsg +=`\n¿Necesitas algo más?🤔\n✅ Escribe *MENÚ* para regresar al inicio.\n`;
                         }
                     });
                     await flowDynamic(personalMsg);
@@ -273,7 +274,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                   
                   let personalMsg = 'Personal encontrado:\n';
                   personal.forEach((persona, index) => {
-                      personalMsg += `Distribucion:${persona['Gerente']},\n Puesto: ${persona['Puesto']},\n Nombre: ${persona['Nombre']},\n Email: ${persona.Email},\n Procedo a la BAJA `;
+                      personalMsg += `Distribucion:${persona['Gerente']},\nPuesto: ${persona['Puesto']},\nNombre: ${persona['Nombre']},\nEmail: ${persona.Email},\nProcedo a la BAJA `;
                       IdPersonal=persona.IdPersonal;
                   });
                   
@@ -290,10 +291,10 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                   }
 
               } else {
-                  await flowDynamic('No se encontro personal con el email especificado.');
+                  await flowDynamic('⚠️ No se encontró personal con el email especificado.\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.\n');
               }
           } else {
-              await flowDynamic('No se encontro personal con el email especificado.');
+              await flowDynamic('⚠️ No se encontró personal con el email especificado.\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.\n');
           }
       } catch (error) {
           console.error('Error al consultar los datos:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
@@ -335,7 +336,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
             console.log('Respuesta de AppSheet:', response.length);
             
             if (response.status === 200 ) {
-                await flowDynamic(`El status ha sido actualizado exitosamente a BAJA para el email ${emailConsulta}.`);
+                await flowDynamic(`✅ El status ha sido actualizado exitosamente a 🔻BAJA para el email: ${emailConsulta}. \n\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.`);
             } else {
                 await flowDynamic('No se pudo actualizar el status. Verifique que el email sea correcto y que existe en la base de datos.');
             }
@@ -347,7 +348,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
       }
       else
       {
-        await flowDynamic('Requieres tener permisos de administrador para realizar esta acción, BAJA no realizada.');
+        await flowDynamic('⚠️ Requieres tener permisos de administrador para realizar esta acción.\n❌ BAJA no realizada.\n\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio. ');
       }  
     });
 
@@ -385,10 +386,10 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                   });
                   await flowDynamic(personalMsg);
               } else {
-                  await flowDynamic('No se encontro personal con el email especificado.');
+                  await flowDynamic('⚠️ No se encontró personal con el email especificado.\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.\n');
               }
           } else {
-              await flowDynamic('No se encontro personal con el email especificado.');
+              await flowDynamic('⚠️ No se encontró personal con el email especificado.\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.\n');
           }
       } catch (error) {
           console.error('Error al consultar los datos:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
@@ -430,7 +431,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
             console.log('Respuesta de AppSheet:', response.length);
             
             if (response.status === 200 ) {
-                await flowDynamic(`El status ha sido actualizado exitosamente a ACTIVO para el email ${emailConsulta}.`);
+                await flowDynamic(`✅ El status ha sido actualizado exitosamente a 🟢 ACTIVO para el email ${emailConsulta} \n\n¿Deseas realizar algo más?🤔\n✅ Escribe MENÚ para regresar al inicio.`);
             } else {
                 await flowDynamic('No se pudo actualizar el status. Verifique que el email sea correcto y que existe en la base de datos.');
             }
@@ -441,15 +442,15 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
         }
         
     });
-   
-
-const flowPrincipal = addKeyword(['chatbot','Chatbot','chatbot ','Chatbot '])
-  .addAnswer('👋  Bienvenido al chatbot de soporte *GROWTH HACKING*, en que puedo ayudar?')
+       
+const flowPrincipal = addKeyword(['chatbot','Chatbot','chatbot ','Chatbot ','CHATBOT','MENU','menu','Menu','Menú','menú'])
+  .addAnswer('👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?')
   .addAnswer([
-    '1️⃣ Escribe la palabra *registrar*, para registrar un usuario en AppCitas.',
-    '2️⃣ Escribe la palabra *consulta*, para consultar el registro de usuario en AppCitas.',
-    '3️⃣ Escribe la palabra *baja*, para dar de baja un usuario en AppCitas.',
-    '4️⃣ Escribe la palabra *reactivar*, para reactivar un usuario en AppCitas.',
+    '1️⃣ *Registrar* un usuario ✍️ ',
+    '2️⃣ *Consultar* información 📋',
+    '3️⃣ *Dar de baja* un usuario 🛑',
+    '4️⃣ *Reactivar* un usuario  🔄 ',
+    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\n Por favor, responde que opción es la que deseas.',
     
   ], null, null, [ flowRegistrarUsuario,flowConsulta,flowBaja,flowReactivar])
 const main = async () => {
