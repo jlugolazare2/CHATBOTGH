@@ -7,18 +7,22 @@ const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
 const axios = require('axios')
-const { reduceBinaryNodeToDictionary } = require('@whiskeysockets/baileys')
+const { reduceBinaryNodeToDictionary, delay, cleanMessage } = require('@whiskeysockets/baileys')
 // Configuración de AppSheet
 const APPSHEET_API_URL = 'https://api.appsheet.com/api/v2/apps/bccce12a-4469-46ea-9de3-d4a09ba4f316/tables/personal/Action'
 const APPSHEET_API_KEY = 'V2-LGQA6-8OWxX-m3j9Z-IvSUD-COZrU-AlrCf-O0doo-jv8yA'
 const APPSHEET_API_URL_GERENCIAS = 'https://api.appsheet.com/api/v2/apps/bccce12a-4469-46ea-9de3-d4a09ba4f316/tables/gerencias/Action'; // URL para leer datos
 
-const flowWeb = addKeyword(['web'])
-  .addAnswer('Esta es nuestra página web: www.empresa.com')
+
+const flowWeb = addKeyword([], { RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
+  .addAnswer('⚠️ Opción no válida. \n¿Deseas realizar algo más? 🤔\n\n ✅ Escribe *MENÚ* para regresar al inicio.', null, async (ctx, { gotoFlow }) => {
+      
+    
+  });
   
-const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','Registrar'])
+const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','Registrar','REGISTRAR','REGISTRO','REGISTRA'],{ sensitive: true })
   .addAnswer('¡Hola! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
-  .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, {fallBack, flowDynamic, state }) => {
+  .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, {fallBack , flowDynamic, state }) => {
     var nombreUsuario = ctx.body
     // Validación del nombre
     const nombreRegex = /^[a-zA-ZÀ-ÿñÑ][a-zA-ZÀ-ÿñÑ\s'-]{2,}$/;
@@ -198,7 +202,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
 
   })
 
-  const flowConsulta = addKeyword(['2','consulta','Consulta','consultar'	])
+  const flowConsulta = addKeyword(['2','consulta','Consulta','consultar'	],{ sensitive: true })
     .addAnswer('Hola! 👋 Vamos a consultar su informacion registrada. Por favor, sigue las instrucciones.')
     .addAnswer('¿Cuál es su Email registrado? ✍️', { capture: true }, async (ctx, {fallBack,flowDynamic, state }) => {     
       if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(ctx.body)) {
@@ -272,7 +276,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
         }
     });
 
-  const flowBaja = addKeyword(['3','baja','Baja'])
+  const flowBaja = addKeyword(['3','baja','Baja'],{ sensitive: true },{ sensitive: true })
     .addAnswer('Hola! 👋 Vamos a actualizar su información registrada. Por favor, sigue las instrucciones.')
     .addAnswer('¿Cuál es su Email registrado? ✍️', { capture: true }, async (ctx, { flowDynamic, state }) => {
       const emailConsulta = ctx.body.trim();
@@ -382,7 +386,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
       }  
     });
 
-  const flowReactivar = addKeyword(['4',' Reactivar','reactivar'])
+  const flowReactivar = addKeyword(['4',' Reactivar','reactivar'],{ sensitive: true })
     .addAnswer('Hola! 👋 Vamos a actualizar su información registrada. Por favor, sigue las instrucciones.')
     .addAnswer('¿Cuál es su Email registrado? ✍️', { capture: true }, async (ctx, { flowDynamic, state }) => {
       const emailConsulta = ctx.body.trim();
@@ -469,7 +473,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
         
     });
 
-    const flowMostrar = addKeyword(['5','mostrar','Mostrar','MOSTRAR'	])
+    const flowMostrar = addKeyword(['5','mostrar','Mostrar','MOSTRAR'	],{ sensitive: true })
     .addAnswer('Hola! 👋 Vamos a consultar su equipo de trabajo. Por favor, sigue las instrucciones.')
     .addAnswer('¿Cuál es su Email registrado? ✍️', { capture: true }, async (ctx, {fallBack,flowDynamic, state }) => {     
       if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(ctx.body)) {
@@ -560,8 +564,10 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
      '4️⃣ *Reactivar* un usuario  🔄 ',
      '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde que opción es la que deseas.',
     
-    ], null, null, [ flowRegistrarUsuario,flowConsulta,flowBaja,flowReactivar,flowMostrar])
-
+    ],    null, null,[ flowRegistrarUsuario,flowConsulta,flowBaja,flowReactivar,flowMostrar,flowWeb])
+    
+   
+    
   const main = async () => {
     const adapterDB = new MockAdapter()
     const adapterFlow = createFlow([flowPrincipal])
