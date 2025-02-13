@@ -2,6 +2,7 @@
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:2744116807.
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:664549028.
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:702062939.
+const dotenv = require("dotenv");
 const { createBot, createProvider, createFlow, addKeyword } = require('@bot-whatsapp/bot')
 const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
@@ -12,6 +13,10 @@ const { reduceBinaryNodeToDictionary, delay, cleanMessage } = require('@whiskeys
 const APPSHEET_API_URL = 'https://api.appsheet.com/api/v2/apps/bccce12a-4469-46ea-9de3-d4a09ba4f316/tables/personal/Action'
 const APPSHEET_API_KEY = 'V2-LGQA6-8OWxX-m3j9Z-IvSUD-COZrU-AlrCf-O0doo-jv8yA'
 const APPSHEET_API_URL_GERENCIAS = 'https://api.appsheet.com/api/v2/apps/bccce12a-4469-46ea-9de3-d4a09ba4f316/tables/gerencias/Action'; // URL para leer datos
+
+// Configuración de OpenAI
+const chat = require('./src/scripts/gemini')
+//import { chat } from './src/scripts/gemini'
 
 
 const flowWeb = addKeyword([], { RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
@@ -30,6 +35,15 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
       return fallBack('Por favor, ingresa un nombre válido.')
     }
     await state.update({ nombreUsuario: nombreUsuario })
+
+    //const prompt="Eres un asitente virtual"
+    //const text=ctx.body
+    //console.log(typeof chat); // Debería imprimir 'function'
+    //console.log(Object.keys(chat)); // Muestra las claves del objeto
+    //const respuesta= await chat(prompt,text)
+    //await chat(prompt,text)
+    //await chat.flowDynamic(respuesta)
+    
   })
   
   .addAnswer(`El nombre de usuario ingresado, ¿Es correcto? (Sí/No)`,{ capture: true },async (ctx2, {fallBack, flowDynamic, state }) => {
