@@ -1,9 +1,11 @@
-require('dotenv').config();
+require("dotenv").config();
+
 //const dotenv = require("dotenv");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-//dotenv.config();
 
+
+console.log("Appikey",process.env.GEMINI_API_KEY);
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 module.exports = async function chat(prompt, text) {
@@ -15,6 +17,7 @@ module.exports = async function chat(prompt, text) {
     const answ=response.text();
     
     console.log(result.response.text());
+    return answ;
 }
 
 

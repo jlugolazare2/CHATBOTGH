@@ -3,7 +3,8 @@
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:664549028.
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:702062939.
 const dotenv = require("dotenv");
-const { createBot, createProvider, createFlow, addKeyword } = require('@bot-whatsapp/bot')
+
+const { createBot, createProvider, createFlow, addKeyword, EVENTS } = require('@bot-whatsapp/bot')
 const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const MockAdapter = require('@bot-whatsapp/database/mock')
@@ -15,19 +16,237 @@ const APPSHEET_API_KEY = 'V2-LGQA6-8OWxX-m3j9Z-IvSUD-COZrU-AlrCf-O0doo-jv8yA'
 const APPSHEET_API_URL_GERENCIAS = 'https://api.appsheet.com/api/v2/apps/bccce12a-4469-46ea-9de3-d4a09ba4f316/tables/gerencias/Action'; // URL para leer datos
 
 // Configuración de OpenAI
-const chat = require('./src/scripts/gemini')
-//import { chat } from './src/scripts/gemini'
+const chat = require('./src/scripts/gemini.js')
 
+
+dotenv.config();
+
+const registerFlow = addKeyword('reg')
+    .addAnswer('¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
+    .addAnswer(`¿Te parece si empezamos, cual es el nombre completo? ✍️ `, { capture: true }, async (ctx, { state,fallBack }) => {
+      var nombreUsuario = ctx.body
+      // Validación del nombre
+      const nombreRegex = /^[a-zA-ZÀ-ÿñÑ][a-zA-ZÀ-ÿñÑ\s'-]{2,}$/;
+      if (!nombreRegex.test(nombreUsuario)) {
+        return fallBack('Por favor, ingresa un nombre válido.')
+      }
+      await state.update({ nombreUsuario: nombreUsuario })
+      //await state.update({ name: ctx.body })
+    })
+    .addAnswer('El nombre de usuario ingresado, ¿Es correcto? (Sí/No)?', { capture: true }, async (ctx, { state,fallBack }) => {
+      const respuesta = ctx.body.toUpperCase() // Captura la respuesta del usuario y la convierte en minúsculas
+      if (ctx.body.toUpperCase() === 'SI') {
+        // Si el usuario confirma que el nombre es correcto, continuar con el flujo
+      }else if (ctx.body.toUpperCase() === 'NO') {
+        // Si el usuario dice que no es correcto, solicitar el nombre nuevamente
+        return fallBack('Por favor, ingresa tu nombre completo nuevamente. ✍️')
+      }else{
+        // Manejo de respuestas inválidas
+        console.log('Respuesta del usuario:', respuesta)
+        await state.update({ nombreUsuario: respuesta })
+        return fallBack('Por favor, responde "sí" o "no" para continuar.');
+        } 
+        //await state.update({ age: ctx.body })
+    })
+    .addAnswer('Muy bien!,  😄 Ahora necesito el correo electrónico 📧', { capture: true }, async (ctx, { state,fallBack }) => {
+      const emailUsuario = ctx.body
+      // Validación del correo electrónico
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(emailUsuario)) {
+        return fallBack('El correo electrónico no es válido. Por favor, ingrésalo nuevamente. 📧');
+      }
+      await state.update({ emailUsuario: emailUsuario })
+          //await state.update({ age: ctx.body })
+    })
+    .addAnswer('¡Perfecto! 🎉 ¿Cuál es el número de celular? 📱', { capture: true }, async (ctx, { state,fallBack }) => {
+      const celUsuario = ctx.body
+      // Validación del número de celular (mínimo 10 dígitos)
+      const telefonoRegex = /^\d{10}$/;
+      if (!telefonoRegex.test(celUsuario)) {
+        return fallBack('El número de celular no es válido. Por favor, ingrésalo nuevamente. 📱');
+      }
+      await state.update({ celUsuario: celUsuario })
+            //await state.update({ age: ctx.body })
+    })
+    .addAnswer('¡Gracias! Ahora, para finalizar, ¿puedes decirme el numero del distribuidor con quien trabaja? 🤝', { capture: true }, async (ctx, { state,fallBack,flowDynamic }) => {
+      const distribucionUsuario = ctx.body
+      // El número de teléfono se encuentra antes de "@s.whatsapp.net"
+      const numeroCelular = ctx.key.remoteJid.split('@')[0]; 
+      console.log('Número de celular obtenido de Baileys:', numeroCelular);
+
+      const { nombreUsuario, emailUsuario, celUsuario } = await state.getMyState()
+      console.log('Datos a enviar:', { nombreUsuario, emailUsuario, distribucionUsuario, celUsuario })
+
+      var distribucionNombre=""
+      var distribucionId=""
+      var nombreUsuarioMayus=nombreUsuario.toUpperCase();
+
+      const payloadBurcarGerente = {
+        "Action": "Find",
+        "Properties": {
+          "Locale": "es-ES"
+        },
+        "Rows": [
+          
+        ]
+      }
+      
+      try {
+        const response = await axios.post(APPSHEET_API_URL_GERENCIAS, payloadBurcarGerente, {
+          headers: {
+            'ApplicationAccessKey': APPSHEET_API_KEY,
+            'Content-Type': 'application/json'
+          }
+        });
+        //console.log('Respuesta completa de AppSheet:', JSON.stringify(response.data, null, 2));
+        if (response.status === 200 && response.data.length > 0) {  
+          const personal = response.data.filter(persona => persona['No Distribuidor'] === distribucionUsuario);
+          console.log('Respuesta completa 2 de AppSheet:', JSON.stringify(personal.data, null, 2));
+          if (personal.length > 0) {
+            let personalMsg = 'Distribuidor encontrado procedo a la alta:';
+            personal.forEach((persona, index) => {
+              //personalMsg += `${index + 1}. Distribución: ${persona['No Distribuidor']}, Gerente: ${persona['Gerente']}, IdGerencia: ${persona['IdGerencia']}, Status: ${persona.Status}`;
+              distribucionNombre=persona['Gerente'];
+              distribucionId=persona['IdGerencia'];
+            });
+            await flowDynamic(personalMsg);
+                  
+            try {
+              const response = await axios.post(APPSHEET_API_URL, payloadBurcarGerente, {
+                headers: {
+                  'ApplicationAccessKey': APPSHEET_API_KEY,
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              //console.log('Respuesta completa de AppSheet:', JSON.stringify(response.data, null, 2));
+              if (response.status === 200 && response.data.length > 0) {
+                const personal = response.data.filter(persona => persona['Telefono'] === numeroCelular.substring(3, 13));
+                console.log('Respuesta completa 2 de AppSheet:', JSON.stringify(personal.data, null, 2));
+                if (personal.length > 0) {
+                  const payload = {
+                    "Action": "Add",
+                    "Properties": {
+                      "Locale": "es-ES"
+                    },
+                    "Rows": [
+                      {
+                        "Nombre": nombreUsuarioMayus,
+                        "Foto": "Personal_Images/7.Foto.221732.png",
+                        "Comision Origen Venta": 0.10,
+                        "Comision Cierre Venta": 0.15,
+                        "Email": emailUsuario,
+                        "Gerente": distribucionNombre,
+                        "IdGerente": distribucionId,
+                        "Telefono": celUsuario,
+                        "Puesto": "EMPRENDEDOR",
+                        "Turno": "Mixto",
+                        "Rol": "CAMPO",
+                        "Nick": numeroCelular,
+                        "Checa":"NO",
+                        "Password":Math.floor(10000+Math.random()*90000),
+                        "Estado del Registro": "ACTIVO"
+                                  
+                      }
+                    ]
+                  }
+                  console.log('Payload completo:', JSON.stringify(payload, null, 2))
+                  try {
+                    const response = await axios.post(APPSHEET_API_URL, payload, {
+                      headers: {
+                        'ApplicationAccessKey': APPSHEET_API_KEY,
+                        'Content-Type': 'application/json'
+                      }
+                    })
+                    console.log('Respuesta completa de AppSheet:', JSON.stringify(response.data, null, 2))
+                    if (response.status === 200) {
+                      await flowDynamic(` ✅ ¡Registro exitoso!\nBienvenido/a, ${nombreUsuario}\nTu correo electrónico registrado es: ${emailUsuario}\nCelular: ${celUsuario}\nDistribuidor: ${distribucionNombre}\n\n¿Deseas realizar algo más?🤔\n✅Escribe *MENÚ* para regresar al inicio.` )
+                    } else {
+                      console.error('Respuesta inesperada de AppCitas:', response.status, response.statusText)
+                      await flowDynamic('Hubo un problema al registrar el usuario. Por favor, intenta nuevamente.')
+                    }
+                  } catch (error) {
+                    console.error('Error al registrar el usuario:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message)
+                    console.error('Stack trace:', error.stack)
+                    await flowDynamic('Ocurrió un error al registrar el usuario. Por favor, intenta más tarde.')
+                    }
+                } else {
+                    await flowDynamic('🔒 Solo personal autorizado puede registrar usuarios en AppCitas. \n¿Deseas realizar algo más? 🤔\n ✅ Escribe *MENÚ* para regresar al inicio.');
+                  }
+              } else {
+                  await flowDynamic('error a obtener datos.');
+                }
+                        
+            } 
+            catch (error) {
+              console.error('Error al consultar los datos:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
+              console.error('Stack trace:', error.stack);
+              await flowDynamic('Ocurrió un error al consultar los datos de la distibucion. Por favor, intenta más tarde.');
+            }
+                
+                  
+    
+                  
+          } else {
+              return fallBack('🔴 Número de Distribuidor No Existe, Por favor, ingrésalo nuevamente\n');
+            }
+        } else {
+            await flowDynamic('No se encontro distribucion con el numero especificado.');
+        }
+      } catch (error) {
+          console.error('Error al consultar los datos:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
+          console.error('Stack trace:', error.stack);
+          await flowDynamic('Ocurrió un error al consultar los datos de la distibucion. Por favor, intenta más tarde.');
+      }
+    })
+    //.addAction(async (_, { flowDynamic, state }) => {
+    //    await flowDynamic(`${state.get('nombreUsuario')}, thanks for your information!: Your age: ${state.get('age')}`)
+    //})
+
+const flowWelcome = addKeyword('Hola')
+  .addAnswer('👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*, ¿En que puedo ayudarte?')
+  .addAnswer([
+  '1️⃣ *Registrar* un usuario ✍️ ',
+  '2️⃣ *Consultar* información 📋',
+  '3️⃣ Dar de *Baja* un usuario 🛑',
+  '4️⃣ *Reactivar* un usuario  🔄 ',
+  '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde que opción es la que deseas.',
+
+  ], {delay:800, capture: true }, 
+    async (ctx,ctxfn ) => {
+        
+        const prompt ="Detecta la intencion del usuario si quiere registrar,consultar,dar de baja, reacticar un usuario o mostrar el equipo de trabajo al que pertenece. Responde solo con 'registrar','consultar','baja','reactivar' o 'mostrar'. Si no está claro, responde 'otro'.";
+        const text = ctx.body.toLowerCase();
+
+        const respuesta = await chat(prompt, text);
+        console.log("IA detectó intención:", respuesta);
+
+        if (respuesta.includes("registrar")) {
+            return ctxfn.flowDynamic("").then(() => ctxfn.gotoFlow(registerFlow));
+        } else if (respuesta.includes("consultar")) {
+            return await ctxfn.flowDynamic("Perfecto, procederemos a consultar un usuario.").then(() =>  ctxfn.gotoFlow(flowConsulta));
+        } else if (respuesta.includes("baja")) {
+            return await ctxfn.flowDynamic("Perfecto, procederemos a dar de baja un usuario.").then(() => ctxfn.gotoFlow(flowBaja));
+        } else if (respuesta.includes("reactivar")) {
+            return await ctxfn.flowDynamic("Perfecto, procederemos a reactivar un usuario.").then(() => ctxfn.gotoFlow(flowReactivar));
+        } else if (respuesta.includes("mostrar")) {
+            return await ctxfn.flowDynamic("Perfecto, procederemos a mostrar el equipo de trabajo del usuario.").then(() => ctxfn.gotoFlow(flowMostrar));
+        } else if (respuesta.includes("otro")) {
+            return await ctxfn.flowDynamic("").then(() => ctxfn.gotoFlow(flowWeb));
+        } else {
+            const respuestaIA = await chat("Eres un asistente útil.", text);
+            return await ctxfn.flowDynamic(respuestaIA);
+        }
+    });
 
 const flowWeb = addKeyword([], { RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
   .addAnswer('⚠️ Opción no válida. \n¿Deseas realizar algo más? 🤔\n\n ✅ Escribe *MENÚ* para regresar al inicio.', null, async (ctx, { gotoFlow }) => {
-      
     
   });
   
 const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','Registrar','REGISTRAR','REGISTRO','REGISTRA'],{ sensitive: true })
-  .addAnswer('¡Hola! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
-  .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, {fallBack , flowDynamic, state }) => {
+  .addAnswer('¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
+  .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, {fallBack , state }) => {
     var nombreUsuario = ctx.body
     // Validación del nombre
     const nombreRegex = /^[a-zA-ZÀ-ÿñÑ][a-zA-ZÀ-ÿñÑ\s'-]{2,}$/;
@@ -35,15 +254,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
       return fallBack('Por favor, ingresa un nombre válido.')
     }
     await state.update({ nombreUsuario: nombreUsuario })
-
-    //const prompt="Eres un asitente virtual"
-    //const text=ctx.body
-    //console.log(typeof chat); // Debería imprimir 'function'
-    //console.log(Object.keys(chat)); // Muestra las claves del objeto
-    //const respuesta= await chat(prompt,text)
-    //await chat(prompt,text)
-    //await chat.flowDynamic(respuesta)
-    
+       
   })
   
   .addAnswer(`El nombre de usuario ingresado, ¿Es correcto? (Sí/No)`,{ capture: true },async (ctx2, {fallBack, flowDynamic, state }) => {
@@ -62,7 +273,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
     }
   )
 
-  .addAnswer('¡Muy bien!,  😄 Ahora necesito el correo electrónico 📧 ', { capture: true }, async (ctx, {fallBack, flowDynamic, state }) => {
+  .addAnswer('Muy bien!,  😄 Ahora necesito el correo electrónico 📧 ', { capture: true }, async (ctx, {fallBack, flowDynamic, state }) => {
     const emailUsuario = ctx.body
     // Validación del correo electrónico
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -91,6 +302,21 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
 
     const { nombreUsuario, emailUsuario, celUsuario } = await state.getMyState()
     console.log('Datos a enviar:', { nombreUsuario, emailUsuario, distribucionUsuario, celUsuario })
+    
+    const prompt ="Basado en tu conocimiento determina el nombre ingresado por el usuario es de hombre o mujer.Responde solo con 'hombre','mujer'.";
+    const text = nombreUsuario;
+    const respuesta = await chat(prompt, text);
+    console.log(respuesta.text);
+    var foto=""
+    if(respuesta.text==='hombre')
+    {
+      foto="Personal_Images/7.Foto.221732.png"
+    }
+    else{
+      foto="Personal_Images/29.Foto.220448.png"
+    }
+    await state.update({ foto: foto })
+    console.log(foto)
 
     var distribucionNombre=""
     var distribucionId=""
@@ -146,10 +372,11 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                   },
                   "Rows": [
                     {
+                      //"IdPersonal":"219",
                       "Nombre": nombreUsuarioMayus,
-                      "Foto": "Personal_Images/7.Foto.221732.png",
-                      "Comision Origen Venta": 0.10,
-                      "Comision Cierre Venta": 0.15,
+                      "Foto": foto,
+                      "Comision Origen Venta": "10%",
+                      "Comision Cierre Venta": "15%",
                       "Email": emailUsuario,
                       "Gerente": distribucionNombre,
                       "IdGerente": distribucionId,
@@ -157,8 +384,8 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
                       "Puesto": "EMPRENDEDOR",
                       "Turno": "Mixto",
                       "Rol": "CAMPO",
-                      "Nick": numeroCelular,
-                      "Checa":"NO",
+                      "Nick": nombreUsuarioMayus,// numeroCelular,
+                      "Checa":1,
                       "Password":Math.floor(10000+Math.random()*90000),
                       "Estado del Registro": "ACTIVO"
                                 
@@ -584,7 +811,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
     
   const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal])
+    const adapterFlow = createFlow([flowPrincipal,flowWelcome,registerFlow])
     const adapterProvider = createProvider(BaileysProvider)
     createBot({
       flow: adapterFlow,
