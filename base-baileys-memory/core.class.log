@@ -2,27 +2,27 @@
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: '5C46D113E24393CC7C9D97D2805573D2',
+    id: 'D96A87C808966BF818189090BF5ED8DB',
     participant: undefined
   },
-  messageTimestamp: 1740512805,
+  messageTimestamp: 1740609541,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
-    conversation: 'Chatbot',
+    conversation: 'Hola',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
       messageSecret: [Uint8Array]
     }
   },
-  body: 'Chatbot',
+  body: 'Hola',
   from: '5216674240559'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  keyword: 'key_331a78ee-f0b4-447f-aa44-0684afeee0ae',
-  answer: '👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?',
+  ref: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  keyword: 'key_c519a85e-0cfe-4f55-8100-864b75a1894d',
+  answer: '👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?',
   options: {
     media: null,
     buttons: [],
@@ -35,65 +35,18 @@
     keyword: {},
     callback: false
   },
-  refSerialize: '2c360635dded777b507c1ef955343a09'
+  refSerialize: '5a5073aa27a4f193d735f9127f2521ae'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_921b35f0-1a63-4923-be81-aeb7668073b9',
-  keyword: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
+  ref: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  keyword: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
   answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
     '2️⃣ *Consultar* información 📋\n' +
     '3️⃣ Dar de *Baja* un usuario 🛑\n' +
-    '4️⃣ *Reactivar* un usuario  🔄 \n' +
+    '4️⃣ *Reactivar* un usuario 🔄 \n' +
     '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
     '\n' +
-    'Por favor, responde que opción es la que deseas.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object]
-    ],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: 'a8606538646c8c8430744e16238eaa05'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'D37A31C8521B8168D89BF613D4A501E0',
-    participant: undefined
-  },
-  messageTimestamp: 1740512814,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: '1',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: '1',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_703926ae-123f-4a09-9965-87c97c108138',
-  keyword: 'key_9e8a9eb3-30ac-4d60-8921-d131ddd6e16e',
-  answer: '¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ',
+    'Por favor, responde con el número de la opción que deseas.',
   options: {
     media: null,
     buttons: [],
@@ -106,12 +59,30 @@
     keyword: {},
     callback: false
   },
-  refSerialize: 'd50f39f9c549b10f634304d2699596bb'
+  refSerialize: '129c5c122b1ef5d207f52d3d1d551790'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_98fad4bc-3ff7-4ad8-9a6e-671a05429c25',
-  keyword: 'ans_703926ae-123f-4a09-9965-87c97c108138',
-  answer: '¿Te parece si empezamos, cual es el nombre completo? ✍️ ',
+  ref: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  keyword: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '20dd1fa60165170ab7b87ca578aa5f11'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_fa069cf1-6f30-4316-af7c-963d101e6ac8',
+  keyword: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  answer: '__capture_only_intended__',
   options: {
     media: null,
     buttons: [],
@@ -124,377 +95,16 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'a98749f592851675e1c0c964daf402a4'
+  refSerialize: 'caa1606369dda3ab4071337fa7f240a6'
 }
 [handleMsg]:  {
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: '8658C272CA1C85CD9352AFA6368D6090',
+    id: 'A7B91D8094D95EB5E81440CA06E05551',
     participant: undefined
   },
-  messageTimestamp: 1740512841,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Nadia zavala felix',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Nadia zavala felix',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5a8c3dbe-639c-4dcb-afb1-7ad6ddc0c2e2',
-  keyword: 'ans_98fad4bc-3ff7-4ad8-9a6e-671a05429c25',
-  answer: 'El nombre de usuario ingresado, ¿Es correcto? (Sí/No)',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '3dde099430ebfe0cd5621abacfb2e675'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: '50992529AD311ED5369EEDCDB8F697C3',
-    participant: undefined
-  },
-  messageTimestamp: 1740512843,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Si',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Si',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_1c9df229-7e4e-4e40-8714-935aeefec113',
-  keyword: 'ans_5a8c3dbe-639c-4dcb-afb1-7ad6ddc0c2e2',
-  answer: 'Muy bien!,  😄 Ahora necesito el correo electrónico 📧 ',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '85958e46f3768df2c450180e6a67dbdf'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'E86B18AF5576030C81DD3BF103B507FB',
-    participant: undefined
-  },
-  messageTimestamp: 1740512893,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'nidiafelix3040@gmail.com',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'nidiafelix3040@gmail.com',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_769fef5b-8a9b-41b2-85f9-8c3240d72c29',
-  keyword: 'ans_1c9df229-7e4e-4e40-8714-935aeefec113',
-  answer: '¡Perfecto! 🎉 ¿Cuál es el número de celular? 📱',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '7b1f4aa79f0f14945eb51da74e2b6c72'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'CF5906E0DD24B8D9EED1D3BCA6A6C5C0',
-    participant: undefined
-  },
-  messageTimestamp: 1740512917,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: '6677911694',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: '6677911694',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_a5a1d46d-dcaa-4522-a84c-0c28b738675c',
-  keyword: 'ans_769fef5b-8a9b-41b2-85f9-8c3240d72c29',
-  answer: '¡Gracias! Ahora, para finalizar, ¿puedes decirme el numero del distribuidor con quien trabaja? 🤝',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '96fae1602f312d3947faed25b6d668ad'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: '8DD27ACDC6BFE1C51A544A8124F172E5',
-    participant: undefined
-  },
-  messageTimestamp: 1740512938,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: '73629',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: '73629',
-  from: '5216674240559'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'CF3D858BD11243162DEEB4E328A056D0',
-    participant: undefined
-  },
-  messageTimestamp: 1740512950,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Menu',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Menu',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  keyword: 'key_331a78ee-f0b4-447f-aa44-0684afeee0ae',
-  answer: '👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: '2c360635dded777b507c1ef955343a09'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_921b35f0-1a63-4923-be81-aeb7668073b9',
-  keyword: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
-    '2️⃣ *Consultar* información 📋\n' +
-    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
-    '4️⃣ *Reactivar* un usuario  🔄 \n' +
-    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
-    '\n' +
-    'Por favor, responde que opción es la que deseas.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object]
-    ],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: 'a8606538646c8c8430744e16238eaa05'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: '20006886C8A061C01E1FC441C617F22E',
-    participant: undefined
-  },
-  messageTimestamp: 1740523112,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Chatbot',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Chatbot',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_d6feab81-5473-4fcf-98b6-047bb60c0d96',
-  keyword: 'key_4c1d4ad9-165a-4616-b91c-7a249ea3ee12',
-  answer: '⚠️ Opción no válida. \n' +
-    '¿Deseas realizar algo más? 🤔\n' +
-    '\n' +
-    ' ✅ Escribe *MENÚ* para regresar al inicio.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a2128938056b334af17db9da15d1c095'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'C66B2FA5D29A6FC91B771FF26FE62B6B',
-    participant: undefined
-  },
-  messageTimestamp: 1740523184,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Chatbot',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Chatbot',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  keyword: 'key_331a78ee-f0b4-447f-aa44-0684afeee0ae',
-  answer: '👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: '2c360635dded777b507c1ef955343a09'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_921b35f0-1a63-4923-be81-aeb7668073b9',
-  keyword: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
-    '2️⃣ *Consultar* información 📋\n' +
-    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
-    '4️⃣ *Reactivar* un usuario  🔄 \n' +
-    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
-    '\n' +
-    'Por favor, responde que opción es la que deseas.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object]
-    ],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: 'a8606538646c8c8430744e16238eaa05'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: '08A777661412650631E0BBFA553477DB',
-    participant: undefined
-  },
-  messageTimestamp: 1740523330,
+  messageTimestamp: 1740609544,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
@@ -508,50 +118,14 @@
   body: '2',
   from: '5216674240559'
 }
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_0d39134d-8282-46a8-b089-b310c9b3f215',
-  keyword: 'key_f009265e-0301-463d-a1b8-a2c4a115fce9',
-  answer: 'Hola! 👋 Vamos a consultar su informacion registrada. Por favor, sigue las instrucciones.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: '95c0c9271deac3ff1270eae083d72e14'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_7e004ff5-4f35-4e12-9376-9700133f1cd0',
-  keyword: 'ans_0d39134d-8282-46a8-b089-b310c9b3f215',
-  answer: '¿Cuál es su Email registrado? ✍️',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '152d867e0f45ec15ca0a208ddade1afa'
-}
 [handleMsg]:  {
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: '19038D49BD308A22FBA880D966F2F6C7',
+    id: '0EDFC54C369B2ED8EA8A4DE46F644E03',
     participant: undefined
   },
-  messageTimestamp: 1740523335,
+  messageTimestamp: 1740609549,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
@@ -569,138 +143,10 @@
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: '4CA38C9A5B8BDCCDE955693B62D75545',
+    id: 'F918F95C36E2B52DEEB92138FAACB4C3',
     participant: undefined
   },
-  messageTimestamp: 1740523342,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: 'Menu',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Menu',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  keyword: 'key_331a78ee-f0b4-447f-aa44-0684afeee0ae',
-  answer: '👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: '2c360635dded777b507c1ef955343a09'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_921b35f0-1a63-4923-be81-aeb7668073b9',
-  keyword: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
-    '2️⃣ *Consultar* información 📋\n' +
-    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
-    '4️⃣ *Reactivar* un usuario  🔄 \n' +
-    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
-    '\n' +
-    'Por favor, responde que opción es la que deseas.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object]
-    ],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: 'a8606538646c8c8430744e16238eaa05'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: '62094EA6DF064244F40854AAD8AC5165',
-    participant: undefined
-  },
-  messageTimestamp: 1740523346,
-  pushName: 'Joel Lugo',
-  broadcast: false,
-  message: Message {
-    conversation: '2',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: '2',
-  from: '5216674240559'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_0d39134d-8282-46a8-b089-b310c9b3f215',
-  keyword: 'key_f009265e-0301-463d-a1b8-a2c4a115fce9',
-  answer: 'Hola! 👋 Vamos a consultar su informacion registrada. Por favor, sigue las instrucciones.',
-  options: {
-    media: null,
-    buttons: [],
-    capture: false,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: false
-  },
-  refSerialize: '95c0c9271deac3ff1270eae083d72e14'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_7e004ff5-4f35-4e12-9376-9700133f1cd0',
-  keyword: 'ans_0d39134d-8282-46a8-b089-b310c9b3f215',
-  answer: '¿Cuál es su Email registrado? ✍️',
-  options: {
-    media: null,
-    buttons: [],
-    capture: true,
-    child: null,
-    delay: 0,
-    idle: null,
-    ref: null,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: '152d867e0f45ec15ca0a208ddade1afa'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5216674240559@s.whatsapp.net',
-    fromMe: false,
-    id: 'B2FA30FC732E83B4482D99936A50188E',
-    participant: undefined
-  },
-  messageTimestamp: 1740523352,
+  messageTimestamp: 1740609561,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
@@ -718,10 +164,490 @@
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: 'EFB81E36A8EF111C90A6E53A05BEB266',
+    id: '39F31C657A2AFF55363B5B5BD6F3B33C',
     participant: undefined
   },
-  messageTimestamp: 1740523373,
+  messageTimestamp: 1740609581,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Hola',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Hola',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  keyword: 'key_c519a85e-0cfe-4f55-8100-864b75a1894d',
+  answer: '👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '5a5073aa27a4f193d735f9127f2521ae'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  keyword: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
+    '2️⃣ *Consultar* información 📋\n' +
+    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
+    '4️⃣ *Reactivar* un usuario 🔄 \n' +
+    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
+    '\n' +
+    'Por favor, responde con el número de la opción que deseas.',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '129c5c122b1ef5d207f52d3d1d551790'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  keyword: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '20dd1fa60165170ab7b87ca578aa5f11'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_fa069cf1-6f30-4316-af7c-963d101e6ac8',
+  keyword: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  answer: '__capture_only_intended__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'caa1606369dda3ab4071337fa7f240a6'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '5B704169F0B49239DC3445160C4673C9',
+    participant: undefined
+  },
+  messageTimestamp: 1740609590,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Hola',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Hola',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '2414D790921862C345C43C7C37E69EF2',
+    participant: undefined
+  },
+  messageTimestamp: 1740609593,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: '6',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '6',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '42B659E483F399E0B4CFD23F57231C37',
+    participant: undefined
+  },
+  messageTimestamp: 1740609601,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Hola',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Hola',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  keyword: 'key_c519a85e-0cfe-4f55-8100-864b75a1894d',
+  answer: '👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '5a5073aa27a4f193d735f9127f2521ae'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  keyword: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
+    '2️⃣ *Consultar* información 📋\n' +
+    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
+    '4️⃣ *Reactivar* un usuario 🔄 \n' +
+    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
+    '\n' +
+    'Por favor, responde con el número de la opción que deseas.',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '129c5c122b1ef5d207f52d3d1d551790'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  keyword: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '20dd1fa60165170ab7b87ca578aa5f11'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_fa069cf1-6f30-4316-af7c-963d101e6ac8',
+  keyword: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  answer: '__capture_only_intended__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'caa1606369dda3ab4071337fa7f240a6'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: 'F321BD82A227144C4C29608AB6982621',
+    participant: undefined
+  },
+  messageTimestamp: 1740609611,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '1',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: 'E8C1CA43B4B12EAEA4861F45692481FD',
+    participant: undefined
+  },
+  messageTimestamp: 1740609614,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Juan',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Juan',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_52d3e299-c19d-481c-9f64-f4bddf5730ca',
+  keyword: 'ans_eee3b5aa-26c0-4849-988b-5b15e4511132',
+  answer: '✅🤔 El nombre de usuario ingresado, ¿es correcto? (🟢 Sí / 🔴 No)',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '163fa9ae9e4c39c17347a735943708f2'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: 'C12164F8E7405A1BCFE19E9C0C809B81',
+    participant: undefined
+  },
+  messageTimestamp: 1740609617,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'No',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'No',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '335C642C7152F4F57A03692167C450BB',
+    participant: undefined
+  },
+  messageTimestamp: 1740609630,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Juana',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Juana',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '972B58889C394F58D27DFAB113361629',
+    participant: undefined
+  },
+  messageTimestamp: 1740609633,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Si',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Si',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_75ae264e-25bd-42c2-a948-ccdea284dd1c',
+  keyword: 'ans_52d3e299-c19d-481c-9f64-f4bddf5730ca',
+  answer: 'Muy bien!,  😄 Ahora necesito el correo electrónico 📧',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '43d60e55abd73235a70308640a3fc28c'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: 'C1B8BCBEB4CB9D273FF3AE8BAEA916BA',
+    participant: undefined
+  },
+  messageTimestamp: 1740609659,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Juanabanana@gmail.com',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Juanabanana@gmail.com',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_5aad210c-03b7-4f63-be1c-47807b59e413',
+  keyword: 'ans_75ae264e-25bd-42c2-a948-ccdea284dd1c',
+  answer: '¡Perfecto! 🎉 ¿Cuál es el número de celular? 📱',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'bbd7639ab833c1fe77aaac586141f9e6'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '4FDE671D6B566785C6183D8E0706AE4C',
+    participant: undefined
+  },
+  messageTimestamp: 1740609667,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: '6677115544',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '6677115544',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ede8f5fa-f313-4ede-8ac5-019c1e630ddb',
+  keyword: 'ans_5aad210c-03b7-4f63-be1c-47807b59e413',
+  answer: '¡Gracias! Ahora, para finalizar, ¿puedes decirme el numero del distribuidor con quien trabaja? 🤝',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '36b110f260952b40f5684ef802e5e6a9'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '9F06B14133FAA5DEA136083AECB60C27',
+    participant: undefined
+  },
+  messageTimestamp: 1740609670,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: '84007',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '84007',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '396467661CB6601BFF7E09E5A7073624',
+    participant: undefined
+  },
+  messageTimestamp: 1740609676,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
@@ -736,9 +662,9 @@
   from: '5216674240559'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
-  keyword: 'key_331a78ee-f0b4-447f-aa44-0684afeee0ae',
-  answer: '👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?',
+  ref: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  keyword: 'key_c519a85e-0cfe-4f55-8100-864b75a1894d',
+  answer: '👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?',
   options: {
     media: null,
     buttons: [],
@@ -751,18 +677,18 @@
     keyword: {},
     callback: false
   },
-  refSerialize: '2c360635dded777b507c1ef955343a09'
+  refSerialize: '5a5073aa27a4f193d735f9127f2521ae'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_921b35f0-1a63-4923-be81-aeb7668073b9',
-  keyword: 'ans_9a17e79e-2196-46ff-a3bf-2de2c5751c96',
+  ref: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  keyword: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
   answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
     '2️⃣ *Consultar* información 📋\n' +
     '3️⃣ Dar de *Baja* un usuario 🛑\n' +
-    '4️⃣ *Reactivar* un usuario  🔄 \n' +
+    '4️⃣ *Reactivar* un usuario 🔄 \n' +
     '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
     '\n' +
-    'Por favor, responde que opción es la que deseas.',
+    'Por favor, responde con el número de la opción que deseas.',
   options: {
     media: null,
     buttons: [],
@@ -771,17 +697,207 @@
     delay: 0,
     idle: null,
     ref: null,
-    nested: [
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object],
-      [Object], [Object], [Object]
-    ],
+    nested: [],
     keyword: {},
     callback: false
   },
-  refSerialize: 'a8606538646c8c8430744e16238eaa05'
+  refSerialize: '129c5c122b1ef5d207f52d3d1d551790'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  keyword: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '20dd1fa60165170ab7b87ca578aa5f11'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_fa069cf1-6f30-4316-af7c-963d101e6ac8',
+  keyword: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  answer: '__capture_only_intended__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'caa1606369dda3ab4071337fa7f240a6'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '1EE13C4615656E3B466E91795862555A',
+    participant: undefined
+  },
+  messageTimestamp: 1740609692,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Hola',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Hola',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '9925F6DAFCFE210E48F7196D9582B244',
+    participant: undefined
+  },
+  messageTimestamp: 1740609706,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: '2',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '2',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '2BD1CFEC7D59C954410A78FD0C6A563F',
+    participant: undefined
+  },
+  messageTimestamp: 1740609719,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Juanabanana@gmail.com',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Juanabanana@gmail.com',
+  from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '3B9F1A41F0CB580664C215A42858B934',
+    participant: undefined
+  },
+  messageTimestamp: 1740609729,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Menu',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Menu',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  keyword: 'key_c519a85e-0cfe-4f55-8100-864b75a1894d',
+  answer: '👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '5a5073aa27a4f193d735f9127f2521ae'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  keyword: 'ans_737d80ed-eb89-435e-a9b7-5bd47ba478d4',
+  answer: '1️⃣ *Registrar* un usuario ✍️ \n' +
+    '2️⃣ *Consultar* información 📋\n' +
+    '3️⃣ Dar de *Baja* un usuario 🛑\n' +
+    '4️⃣ *Reactivar* un usuario 🔄 \n' +
+    '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n' +
+    '\n' +
+    'Por favor, responde con el número de la opción que deseas.',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '129c5c122b1ef5d207f52d3d1d551790'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  keyword: 'ans_b24a4133-cbc1-4927-862a-9d0db9161aa9',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '20dd1fa60165170ab7b87ca578aa5f11'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_fa069cf1-6f30-4316-af7c-963d101e6ac8',
+  keyword: 'ans_86b2b2f1-3a98-4815-8e7e-449f9455c811',
+  answer: '__capture_only_intended__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'caa1606369dda3ab4071337fa7f240a6'
 }

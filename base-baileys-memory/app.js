@@ -21,30 +21,52 @@ const chat = require('./src/scripts/gemini.js')
 
 dotenv.config();
 
-const registerFlow = addKeyword('reg')
+const activeUsers = new Map(); // Mapa para rastrear usuarios y su timeout
+
+const flowHola = addKeyword('helado')
+    .addAnswer('¡Hola! ¿En qué puedo ayudarte?')
+    .addAction(async (ctx, { flowDynamic }) => {
+        const userId = ctx.from; 
+
+        // Si el usuario ya tenía un timeout activo, lo limpiamos antes de crear uno nuevo
+        if (activeUsers.has(userId)) {
+            clearTimeout(activeUsers.get(userId));
+        }
+
+        // Creamos un timeout de 5 minutos (300000 ms)
+        const timeout = setTimeout(async () => {
+            await flowDynamic('Parece que estuviste inactivo. Si necesitas ayuda, escribe "hola" de nuevo.');
+            activeUsers.delete(userId); // Eliminamos al usuario del mapa cuando se notifica
+        }, 300000); 
+
+        // Guardamos el timeout en el mapa
+        activeUsers.set(userId, timeout);
+    });
+
+const registerFlow = addKeyword(['1','registrar','Registrar','registro','Registro','registra','Registra'],{ sensitive: true })
     .addAnswer('¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
     .addAnswer(`¿Te parece si empezamos, cual es el nombre completo? ✍️ `, { capture: true }, async (ctx, { state,fallBack }) => {
       var nombreUsuario = ctx.body
       // Validación del nombre
       const nombreRegex = /^[a-zA-ZÀ-ÿñÑ][a-zA-ZÀ-ÿñÑ\s'-]{2,}$/;
       if (!nombreRegex.test(nombreUsuario)) {
-        return fallBack('Por favor, ingresa un nombre válido.')
+        return fallBack('⚠️❌ Por favor, ingresa un nombre válido. 😊✍️.')
       }
       await state.update({ nombreUsuario: nombreUsuario })
       //await state.update({ name: ctx.body })
     })
-    .addAnswer('El nombre de usuario ingresado, ¿Es correcto? (Sí/No)?', { capture: true }, async (ctx, { state,fallBack }) => {
+    .addAnswer('✅🤔 El nombre de usuario ingresado, ¿es correcto? (🟢 Sí / 🔴 No)', { capture: true }, async (ctx, { state,fallBack }) => {
       const respuesta = ctx.body.toUpperCase() // Captura la respuesta del usuario y la convierte en minúsculas
       if (ctx.body.toUpperCase() === 'SI') {
         // Si el usuario confirma que el nombre es correcto, continuar con el flujo
       }else if (ctx.body.toUpperCase() === 'NO') {
         // Si el usuario dice que no es correcto, solicitar el nombre nuevamente
-        return fallBack('Por favor, ingresa tu nombre completo nuevamente. ✍️')
+        return fallBack('Por favor, ingresa el nombre completo nuevamente. ✍️')
       }else{
         // Manejo de respuestas inválidas
         console.log('Respuesta del usuario:', respuesta)
         await state.update({ nombreUsuario: respuesta })
-        return fallBack('Por favor, responde "sí" o "no" para continuar.');
+        return fallBack('✅🤔 El nombre de usuario ingresado, ¿es correcto? "SI" ✅ o "NO" ❌ para continuar.');
         } 
         //await state.update({ age: ctx.body })
     })
@@ -203,7 +225,7 @@ const registerFlow = addKeyword('reg')
     //    await flowDynamic(`${state.get('nombreUsuario')}, thanks for your information!: Your age: ${state.get('age')}`)
     //})
 
-const flowWelcome = addKeyword('Hola')
+const flowWelcome = addKeyword('olandes',{ sensitive: true })
   .addAnswer('👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*, ¿En que puedo ayudarte?')
   .addAnswer([
   '1️⃣ *Registrar* un usuario ✍️ ',
@@ -239,12 +261,12 @@ const flowWelcome = addKeyword('Hola')
         }
     });
 
-const flowWeb = addKeyword([], { RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
-  .addAnswer('⚠️ Opción no válida. \n¿Deseas realizar algo más? 🤔\n\n ✅ Escribe *MENÚ* para regresar al inicio.', null, async (ctx, { gotoFlow }) => {
+//const flowWeb = addKeyword(['web'], { sensitive: true ,RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
+//  .addAnswer('⚠️ Opción no válida. \n¿Deseas realizar algo más? 🤔\n\n ✅ Escribe *MENÚ* para regresar al inicio.', null, async (ctx, { gotoFlow }) => {
     
-  });
+//  });
   
-const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','Registrar','REGISTRAR','REGISTRO','REGISTRA'],{ sensitive: true })
+const flowRegistrarUsuario = addKeyword(['ninguna'],{ sensitive: true })
   .addAnswer('¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
   .addAnswer('¿Te parece si empezamos, cual es el nombre completo? ✍️ ', { capture: true }, async (ctx, {fallBack , state }) => {
     var nombreUsuario = ctx.body
@@ -443,7 +465,7 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
 
   })
 
-  const flowConsulta = addKeyword(['2','consulta','Consulta','consultar'	],{ sensitive: true })
+  const flowConsulta = addKeyword(['2','consulta','Consulta','consultar'],{ sensitive: true })
     .addAnswer('Hola! 👋 Vamos a consultar su informacion registrada. Por favor, sigue las instrucciones.')
     .addAnswer('¿Cuál es su Email registrado? ✍️', { capture: true }, async (ctx, {fallBack,flowDynamic, state }) => {     
       if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(ctx.body)) {
@@ -796,8 +818,8 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
         }
     });
        
-  const flowPrincipal = addKeyword(['chatbot','Chatbot','chatbot ','Chatbot ','CHATBOT','MENU','menu','Menu','Menú','menú'])
-    .addAnswer('👋  ¡Hola! Soy tu asistente virtual de soporte de la App de Citas de *GROWTH HACKING*, ¿En que puedo ayudarte?')
+  const flowPrincipal_2 = addKeyword(['chatbot','Chatbot','chatbot ','Chatbot ','CHATBOT'])
+    .addAnswer('👋  ¡Hola! Soy GHBot🤖,tu asistente virtual de *GROWTH HACKING*, ¿En que puedo ayudarte?')
     .addAnswer([
      '1️⃣ *Registrar* un usuario ✍️ ',
      '2️⃣ *Consultar* información 📋',
@@ -805,13 +827,66 @@ const flowRegistrarUsuario = addKeyword(['1','registrar','registro','registra','
      '4️⃣ *Reactivar* un usuario  🔄 ',
      '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde que opción es la que deseas.',
     
-    ],    null, null,[ flowRegistrarUsuario,flowConsulta,flowBaja,flowReactivar,flowMostrar,flowWeb])
-    
+    ],    null, null,[ flowRegistrarUsuario,flowConsulta,flowBaja,flowReactivar,flowMostrar])
+  
+  const flowPrincipal = addKeyword([
+    'HOLA', 'hola', 'Hola',
+    'MENU', 'menu', 'Menu', 'Menú', 'menú'
+])
+    .addAnswer('👋 ¡Hola! Soy GHBot 🤖, tu asistente virtual de *GROWTH HACKING*, ¿En qué puedo ayudarte?')
+    .addAnswer([
+        '1️⃣ *Registrar* un usuario ✍️ ',
+        '2️⃣ *Consultar* información 📋',
+        '3️⃣ Dar de *Baja* un usuario 🛑',
+        '4️⃣ *Reactivar* un usuario 🔄 ',
+        '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde con el número de la opción que deseas.',
+    ])
+    .addAction(async (ctx, { flowDynamic, endFlow }) => {
+        const userId = ctx.from;
+
+        // Si el usuario ya tenía un timeout activo, lo limpiamos antes de crear uno nuevo
+        if (activeUsers.has(userId)) {
+            clearTimeout(activeUsers.get(userId));
+        }
+
+        // Creamos un timeout de 5 minutos (300000 ms)
+        const timeout = setTimeout(async () => {
+            await flowDynamic('⏳✨ ¡Ayudarte es mi misión! 🤖 Cuando requieras ayuda nuevamente, solo escribe "Hola" y estaré listo para asistirte. 🚀 ¡Hasta pronto! 🙌');
+            activeUsers.delete(userId); // Eliminamos al usuario del mapa cuando se notifica
+            return endFlow()
+        }, 300000);
+
+        // Guardamos el timeout en el mapa
+        activeUsers.set(userId, timeout);
+    })
+    .addAction({ capture: true }, async (ctx, { flowDynamic, gotoFlow,endFlow }) => {
+        switch (ctx.body.trim().toLowerCase()) {
+            case '1':
+            case 'registrar':
+                return gotoFlow(registerFlow);
+            case '2':
+            case 'consultar':
+                return gotoFlow(flowConsulta);
+            case '3':
+            case 'baja':
+                return gotoFlow(flowBaja);
+            case '4':
+            case 'reactivar':
+                return gotoFlow(flowReactivar);
+            case '5':
+            case 'mostrar':
+                return gotoFlow(flowMostrar);
+            case 'hola':
+                return gotoFlow(flowPrincipal);
+            default:
+                await flowDynamic('⚠️ Opción no válida. \n¿Deseas realizar algo más? 🤔\n\n ✅ Escribe *MENÚ* para regresar al inicio.');
+        }
+    });
    
     
   const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal,flowWelcome,registerFlow])
+    const adapterFlow = createFlow([flowPrincipal,flowWelcome,registerFlow,flowPrincipal_2])
     const adapterProvider = createProvider(BaileysProvider)
     createBot({
       flow: adapterFlow,
