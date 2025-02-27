@@ -43,9 +43,16 @@ const flowHola = addKeyword('helado')
         activeUsers.set(userId, timeout);
     });
 
+const flowSalir = addKeyword(['salir', 'exit'])
+.addAnswer('⏳✨ ¡Ayudarte es mi misión! 🤖 Cuando requieras ayuda nuevamente, solo escribe *"Hola"* y estaré listo para asistirte. 🚀 ¡Hasta pronto! 🙌')
+.addAction(async (ctx,{endFlow}) => {
+    return endFlow(); // Finaliza la conversación
+});
+
 const registerFlow = addKeyword(['1','registrar','Registrar','registro','Registro','registra','Registra'],{ sensitive: true })
     .addAnswer('¡Entendido! 👋 Vamos a registrar un usuario en la app de Citas. Por favor, sigue las instrucciones.   ')
-    .addAnswer(`¿Te parece si empezamos, cual es el nombre completo? ✍️ `, { capture: true }, async (ctx, { state,fallBack }) => {
+    .addAnswer(`¿Te parece si empezamos, cual es el nombre completo? ✍️ `, { capture: true }, async (ctx, { state,fallBack,flowDynamic,endFlow }) => {
+            
       var nombreUsuario = ctx.body
       // Validación del nombre
       const nombreRegex = /^[a-zA-ZÀ-ÿñÑ][a-zA-ZÀ-ÿñÑ\s'-]{2,}$/;
@@ -54,6 +61,7 @@ const registerFlow = addKeyword(['1','registrar','Registrar','registro','Registr
       }
       await state.update({ nombreUsuario: nombreUsuario })
       //await state.update({ name: ctx.body })
+      
     })
     .addAnswer('✅🤔 El nombre de usuario ingresado, ¿es correcto? (🟢 Sí / 🔴 No)', { capture: true }, async (ctx, { state,fallBack }) => {
       const respuesta = ctx.body.toUpperCase() // Captura la respuesta del usuario y la convierte en minúsculas
@@ -841,7 +849,7 @@ const flowRegistrarUsuario = addKeyword(['ninguna'],{ sensitive: true })
         '4️⃣ *Reactivar* un usuario 🔄 ',
         '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde con el número de la opción que deseas.',
     ])
-    .addAction(async (ctx, { flowDynamic, endFlow }) => {
+    .addAction(async (ctx, { flowDynamic, endFlow,gotoFlow }) => {
         const userId = ctx.from;
 
         // Si el usuario ya tenía un timeout activo, lo limpiamos antes de crear uno nuevo
@@ -851,9 +859,9 @@ const flowRegistrarUsuario = addKeyword(['ninguna'],{ sensitive: true })
 
         // Creamos un timeout de 5 minutos (300000 ms)
         const timeout = setTimeout(async () => {
-            await flowDynamic('⏳✨ ¡Ayudarte es mi misión! 🤖 Cuando requieras ayuda nuevamente, solo escribe "Hola" y estaré listo para asistirte. 🚀 ¡Hasta pronto! 🙌');
+            //await flowDynamic('⏳✨ ¡Ayudarte es mi misión! 🤖 Cuando requieras ayuda nuevamente, solo escribe "Hola" y estaré listo para asistirte. 🚀 ¡Hasta pronto! 🙌');
             activeUsers.delete(userId); // Eliminamos al usuario del mapa cuando se notifica
-            return endFlow()
+            return gotoFlow(flowSalir);
         }, 300000);
 
         // Guardamos el timeout en el mapa
@@ -886,7 +894,7 @@ const flowRegistrarUsuario = addKeyword(['ninguna'],{ sensitive: true })
     
   const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal,flowWelcome,registerFlow,flowPrincipal_2])
+    const adapterFlow = createFlow([flowPrincipal,flowWelcome,registerFlow,flowPrincipal_2,flowSalir])
     const adapterProvider = createProvider(BaileysProvider)
     createBot({
       flow: adapterFlow,
