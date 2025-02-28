@@ -233,40 +233,82 @@ const registerFlow = addKeyword(['1','registrar','Registrar','registro','Registr
     //    await flowDynamic(`${state.get('nombreUsuario')}, thanks for your information!: Your age: ${state.get('age')}`)
     //})
 
-const flowWelcome = addKeyword('olandes',{ sensitive: true })
-  .addAnswer('👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*, ¿En que puedo ayudarte?')
-  .addAnswer([
-  '1️⃣ *Registrar* un usuario ✍️ ',
-  '2️⃣ *Consultar* información 📋',
-  '3️⃣ Dar de *Baja* un usuario 🛑',
-  '4️⃣ *Reactivar* un usuario  🔄 ',
-  '5️⃣ *Mostrar* equipo de trabajo 🧑‍💼\n\nPor favor, responde que opción es la que deseas.',
+const flowWelcome = addKeyword('ia')
+  .addAnswer('👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*')
+  .addAnswer(' ¿En que puedo ayudarte?', {delay:800, capture: true }, 
+    async (ctx,{flowDynamic} ) => {
+      // El número de teléfono se encuentra antes de "@s.whatsapp.net" solo estara disponible para propietarios
+      const numeroCelular = ctx.key.remoteJid.split('@')[0]; 
+      console.log('Número de celular obtenido de Baileys:', numeroCelular);  
 
-  ], {delay:800, capture: true }, 
-    async (ctx,ctxfn ) => {
-        
-        const prompt ="Detecta la intencion del usuario si quiere registrar,consultar,dar de baja, reacticar un usuario o mostrar el equipo de trabajo al que pertenece. Responde solo con 'registrar','consultar','baja','reactivar' o 'mostrar'. Si no está claro, responde 'otro'.";
-        const text = ctx.body.toLowerCase();
+      const payload = {
+        "Action": "Find",
+        "Properties": {
+          "Locale": "es-ES"
+        },
+        "Rows": [
+              
+        ]
+      }
 
-        const respuesta = await chat(prompt, text);
-        console.log("IA detectó intención:", respuesta);
+      try {
+          const response = await axios.post(APPSHEET_API_URL, payload, {
+            headers: {
+              'ApplicationAccessKey': APPSHEET_API_KEY,
+              'Content-Type': 'application/json'
+            }
+          });
+           
+          //console.log('Respuesta completa de AppSheet:', JSON.stringify(response.data, null, 2));
+          if (response.status === 200 && response.data.length > 0) {
+            const personal_TODOS = response.data.filter(personal => personal.Telefono.length > 0);
+            // Convertir a JSON
+            const personal_TODOS_JSON = JSON.stringify(personal_TODOS, null, 2);
+            if (personal_TODOS.length > 0) {
+              //const gerenteConsulta = personalAux[0].IdGerente;
+              console.log('NumeroCelular:',numeroCelular);
+              const personal_AUTORIZADO = response.data.filter(personal => personal.Telefono === numeroCelular.substring(3, 13) && personal['Rol'] === 'PROPIETARIO');
+              console.log('Respuesta Personal Autorizado:', personal_AUTORIZADO.length);
+              if (personal_AUTORIZADO.length > 0) {
+                //let personalMsg = `📋 Aquí tienes tu información:\nGERENCIA: ${personalAux[0].Gerente}\n`;
+                
+                //personal.forEach((persona, index) => {
+                //  let numero = String(index + 1).padStart(2, '0'); // Asegura dos dígitos
+                //  personalMsg += `${numero}.- ${persona['Nombre'].substring(0, 25)}\n`;
+                  
+                  //if (numeroCelular===(`521`+personal_AUTORIZADO.Telefono.toString())) {
+                    //Consulta a la inteligencia articifial
+                    const prompt ="Eres un asistente estadistico que tienes acceso a mi personal. Te voy a consultar sobre eso.";
+                    console.log("paso por aqui 1")
+                    const text = ctx.body+"\n mi personal es: "+ personal_TODOS_JSON;
+                    console.log("paso por aqui 2")
+                    const respuesta = await chat(prompt, text);
+                    console.log("IA respondio:", respuesta);
+                    return await flowDynamic(respuesta);
 
-        if (respuesta.includes("registrar")) {
-            return ctxfn.flowDynamic("").then(() => ctxfn.gotoFlow(registerFlow));
-        } else if (respuesta.includes("consultar")) {
-            return await ctxfn.flowDynamic("Perfecto, procederemos a consultar un usuario.").then(() =>  ctxfn.gotoFlow(flowConsulta));
-        } else if (respuesta.includes("baja")) {
-            return await ctxfn.flowDynamic("Perfecto, procederemos a dar de baja un usuario.").then(() => ctxfn.gotoFlow(flowBaja));
-        } else if (respuesta.includes("reactivar")) {
-            return await ctxfn.flowDynamic("Perfecto, procederemos a reactivar un usuario.").then(() => ctxfn.gotoFlow(flowReactivar));
-        } else if (respuesta.includes("mostrar")) {
-            return await ctxfn.flowDynamic("Perfecto, procederemos a mostrar el equipo de trabajo del usuario.").then(() => ctxfn.gotoFlow(flowMostrar));
-        } else if (respuesta.includes("otro")) {
-            return await ctxfn.flowDynamic("").then(() => ctxfn.gotoFlow(flowWeb));
-        } else {
-            const respuestaIA = await chat("Eres un asistente útil.", text);
-            return await ctxfn.flowDynamic(respuestaIA);
+                  //}else{
+                      //personalMsg +=`\n¿Necesitas algo más?🤔\n✅ Escribe *MENÚ* para regresar al inicio.\n`;
+                  //}
+                //});
+                //personalMsg +=`\n¿Necesitas algo más?🤔\n✅ Escribe *MENÚ* para regresar al inicio.\n`;
+                //await flowDynamic(personalMsg);
+              } else {
+                await flowDynamic('⚠️ No se encontró personal registrado\n');
+              }
+            } else {
+              await flowDynamic('⚠️ No se encontró personal registrado\n');
+              }
+          }
+        } catch (error) {
+          console.error('Error al consultar los datos:', error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
+          console.error('Stack trace:', error.stack);
+          await flowDynamic('Ocurrió un error al consultar los datos. Por favor, intenta más tarde.');
         }
+
+
+        
+    
+        
     });
 
 //const flowWeb = addKeyword(['web'], { sensitive: true ,RegExp:/^(?!\b(1|registrar|2|consultar|3|baja|4|reactivar|5|mostrar|chatbot|Chatbot|menu)\b).+$/i}) 
