@@ -2,10 +2,10 @@
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: '232052B3B2D26A7E520084F25FE93B1A',
+    id: 'B47BFA4F1C6553FDCC50EE031F984511',
     participant: undefined
   },
-  messageTimestamp: 1740783528,
+  messageTimestamp: 1740789608,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
@@ -20,8 +20,8 @@
   from: '5216674240559'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5e41df5a-17b1-413e-9adf-54782c6108b4',
-  keyword: 'key_03d4273d-1499-4cb6-ac76-0b3392f76c86',
+  ref: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  keyword: 'key_07f25775-43a8-4f1b-b561-43447f432575',
   answer: '👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*',
   options: {
     media: null,
@@ -35,11 +35,11 @@
     keyword: {},
     callback: false
   },
-  refSerialize: '66f222008754b3af836af9c45043e2bb'
+  refSerialize: 'b26ca2e967f55e0934238eafa6fa528a'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_c108d567-1912-43db-9fc4-2c54c93abde1',
-  keyword: 'ans_5e41df5a-17b1-413e-9adf-54782c6108b4',
+  ref: 'ans_ca712b0a-e4ca-4a54-9335-31f2d3a208be',
+  keyword: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
   answer: ' ¿En que puedo ayudarte?',
   options: {
     media: null,
@@ -53,26 +53,254 @@
     keyword: {},
     callback: true
   },
-  refSerialize: '288a971898a59c795c253a5263c9062a'
+  refSerialize: '2f8de9322680697e097662c1d92a24a0'
 }
 [handleMsg]:  {
   key: {
     remoteJid: '5216674240559@s.whatsapp.net',
     fromMe: false,
-    id: 'DA8637D08CA5AC6A2D4D8AB3802BE57F',
+    id: '1936CCD84EA99FF5112EC0963536C88F',
     participant: undefined
   },
-  messageTimestamp: 1740783546,
+  messageTimestamp: 1740789631,
   pushName: 'Joel Lugo',
   broadcast: false,
   message: Message {
-    conversation: 'Cuantas personas se llaman JOEL listamelas',
+    conversation: 'Cunatas personas se llaman joel',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
       messageSecret: [Uint8Array]
     }
   },
-  body: 'Cuantas personas se llaman JOEL listamelas',
+  body: 'Cunatas personas se llaman joel',
   from: '5216674240559'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '31DD0B88A8B7F267D242D68DCDCA9E97',
+    participant: undefined
+  },
+  messageTimestamp: 1740789652,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Ia',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Ia',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  keyword: 'key_07f25775-43a8-4f1b-b561-43447f432575',
+  answer: '👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'b26ca2e967f55e0934238eafa6fa528a'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ca712b0a-e4ca-4a54-9335-31f2d3a208be',
+  keyword: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  answer: ' ¿En que puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 800,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '2f8de9322680697e097662c1d92a24a0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '8A6A5FA51C07CE1C165F122973652611',
+    participant: undefined
+  },
+  messageTimestamp: 1740789779,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Como esta integrada cada gerencia por ejemplo gerencia JAVIER cerradores 3, emprendedores 7, gerencia alfreado/karen cerradores 5, emprendedores 20 formato tabla totales por fila y columna',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Como esta integrada cada gerencia por ejemplo gerencia JAVIER cerradores 3, emprendedores 7, gerencia alfreado/karen cerradores 5, emprendedores 20 formato tabla totales por fila y columna',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  keyword: 'key_07f25775-43a8-4f1b-b561-43447f432575',
+  answer: '👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'b26ca2e967f55e0934238eafa6fa528a'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ca712b0a-e4ca-4a54-9335-31f2d3a208be',
+  keyword: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  answer: ' ¿En que puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 800,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '2f8de9322680697e097662c1d92a24a0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '570C6DA68B31AA4939D53990C4281290',
+    participant: undefined
+  },
+  messageTimestamp: 1740790010,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Ia',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Ia',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  keyword: 'key_07f25775-43a8-4f1b-b561-43447f432575',
+  answer: '👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'b26ca2e967f55e0934238eafa6fa528a'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ca712b0a-e4ca-4a54-9335-31f2d3a208be',
+  keyword: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  answer: ' ¿En que puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 800,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '2f8de9322680697e097662c1d92a24a0'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5216674240559@s.whatsapp.net',
+    fromMe: false,
+    id: '1F906F3E63104C0357A268DC3525A1D6',
+    participant: undefined
+  },
+  messageTimestamp: 1740790094,
+  pushName: 'Joel Lugo',
+  broadcast: false,
+  message: Message {
+    conversation: 'Como esta integrada cada gerencia por ejemplo gerencia JAVIER cerradores 3, emprendedores 7, gerencia alfreado/karen cerradores 5, emprendedores 20 formato tabla totales por fila y columna, basate conforme a la columna puesto',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Como esta integrada cada gerencia por ejemplo gerencia JAVIER cerradores 3, emprendedores 7, gerencia alfreado/karen cerradores 5, emprendedores 20 formato tabla totales por fila y columna, basate conforme a la columna puesto',
+  from: '5216674240559'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  keyword: 'key_07f25775-43a8-4f1b-b561-43447f432575',
+  answer: '👋  ¡Hola Bienvenido! Soy el asistente virtual de *GROWTH HACKING*',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: 'b26ca2e967f55e0934238eafa6fa528a'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ca712b0a-e4ca-4a54-9335-31f2d3a208be',
+  keyword: 'ans_5f8bea25-57b5-4196-a4e7-d473f58ad458',
+  answer: ' ¿En que puedo ayudarte?',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 800,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '2f8de9322680697e097662c1d92a24a0'
 }
